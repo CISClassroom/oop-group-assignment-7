@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.mavenproject2;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,9 +14,11 @@ package com.mycompany.mavenproject2;
 public class Machine extends javax.swing.JFrame {
 
     String price[] = {"35","45","50"};
+    DefaultTableModel model;
     public Machine() {
         initComponents();
         Raka.setText(price[0]);
+        model=(DefaultTableModel)TB.getModel();
     }
 
     /**
@@ -35,7 +39,7 @@ public class Machine extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TB = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         Buy = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
@@ -54,36 +58,44 @@ public class Machine extends javax.swing.JFrame {
         });
 
         Add.setText("Add");
+        Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddActionPerformed(evt);
+            }
+        });
 
         Delete.setText("Delete");
+
+        Raka.setEnabled(false);
 
         jLabel1.setText("ราคา");
         jLabel1.setToolTipText("");
 
         jLabel2.setText("จำนวน");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "รายการ", "ราคา/ชุด", "จำนวน", "ราคา"
+                "รายการ", "ร้อน/เย็น/ปั่น", "ราคา/ชุด", "จำนวน", "ราคา"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(TB);
+        if (TB.getColumnModel().getColumnCount() > 0) {
+            TB.getColumnModel().getColumn(0).setResizable(false);
+            TB.getColumnModel().getColumn(1).setResizable(false);
+            TB.getColumnModel().getColumn(2).setResizable(false);
+            TB.getColumnModel().getColumn(3).setResizable(false);
+            TB.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel3.setText("Total");
@@ -101,8 +113,10 @@ public class Machine extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -121,9 +135,6 @@ public class Machine extends javax.swing.JFrame {
                             .addComponent(Coffee, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Buy, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
@@ -134,8 +145,11 @@ public class Machine extends javax.swing.JFrame {
                                         .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(35, 35, 35)
-                                        .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                                        .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +194,16 @@ public class Machine extends javax.swing.JFrame {
         Raka.setText(price[Type.getSelectedIndex()]);
     }//GEN-LAST:event_TypeItemStateChanged
 
+    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+        Vector v = new Vector();
+        v.add(Coffee.getSelectedItem().toString());
+        v.add(Type.getSelectedItem().toString());      
+        v.add(Raka.getText());
+        v.add(Jum.getText());
+        model.addRow(v);
+        
+    }//GEN-LAST:event_AddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,6 +247,7 @@ public class Machine extends javax.swing.JFrame {
     private javax.swing.JButton Delete;
     private javax.swing.JTextField Jum;
     private javax.swing.JTextField Raka;
+    private javax.swing.JTable TB;
     private javax.swing.JTextField Total;
     private javax.swing.JComboBox<String> Type;
     private javax.swing.JLabel jLabel1;
@@ -230,6 +255,5 @@ public class Machine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
