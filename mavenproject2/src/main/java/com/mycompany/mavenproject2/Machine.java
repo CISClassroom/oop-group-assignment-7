@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
+import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  *
@@ -25,21 +25,7 @@ public class Machine extends javax.swing.JFrame {
     double total = 0.0;
     int Sel;
     
-    public static void main(String[] args) {
-        String path = "Desktop:ใบเสร็จ.txt";
-        File file = new File(path);
-        
-        FileWriter writer;
-        try {
-            writer = new FileWriter(file, true);
-            writer.write("Welcome thaicreate.com 1\r\n");
-            writer.write("Welcome thaicreate.com 1\r\n");
-            writer.close();
-            System.out.println("Write success!");
-        }   catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+    
     
     public Machine() {
         initComponents();
@@ -64,7 +50,7 @@ public class Machine extends javax.swing.JFrame {
         Jum = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        tb = new javax.swing.JScrollPane();
         TB = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         Buy = new javax.swing.JButton();
@@ -74,8 +60,9 @@ public class Machine extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 51, 255));
 
-        Coffee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Esspresso", "Americano", "Latte", "Cappuccino", "Mocha", "Macchiato", "Frappe", "Affogato" }));
+        Coffee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Esspresso", "Americano", "Latte", "Cappuccino", "Mocha", "Macchiato", "Affogato" }));
 
         Type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hot", "Ice ", "Frappe" }));
         Type.addItemListener(new java.awt.event.ItemListener() {
@@ -126,7 +113,7 @@ public class Machine extends javax.swing.JFrame {
                 TBMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TB);
+        tb.setViewportView(TB);
         if (TB.getColumnModel().getColumnCount() > 0) {
             TB.getColumnModel().getColumn(0).setResizable(false);
             TB.getColumnModel().getColumn(1).setResizable(false);
@@ -138,6 +125,11 @@ public class Machine extends javax.swing.JFrame {
         jLabel3.setText("Total");
 
         Buy.setText("Buy");
+        Buy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuyActionPerformed(evt);
+            }
+        });
 
         Total.setEnabled(false);
 
@@ -156,7 +148,7 @@ public class Machine extends javax.swing.JFrame {
                         .addGap(343, 343, 343)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)))
+                            .addComponent(tb, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -203,7 +195,7 @@ public class Machine extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(tb, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(217, 217, 217))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Coffee, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,6 +270,26 @@ public class Machine extends javax.swing.JFrame {
         Sel = TB.getSelectedRow();
         System.out.println("แถวที่ "+Sel);
     }//GEN-LAST:event_TBMouseClicked
+
+    private void BuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyActionPerformed
+        // TODO add your handling code here:
+        double money = Double.valueOf(Raka.getText())*Double.valueOf(Jum.getText());
+        String path = "C:\\Users\\HP\\Desktop\\txt.txt";
+        File file = new File (path);
+        FileWriter writer;
+        try {
+            writer = new FileWriter(file,true);
+            writer.write (Coffee.getSelectedItem() + "(" + Type.getSelectedItem() + ")\t" + df.format(money) + " Bath\n" );
+            writer.write ("Total Price :\t" + (df.format(total)) + " Bath");
+            writer.close();
+            
+            System.out.println("Write success!");
+            
+        }catch (IOException e)  {
+        
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_BuyActionPerformed
     
     /**
      * @param args the command line arguments
@@ -330,6 +342,7 @@ public class Machine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane tb;
     // End of variables declaration//GEN-END:variables
-}
+
+    

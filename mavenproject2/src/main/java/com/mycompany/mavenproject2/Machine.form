@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="33" red="ff" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -29,12 +32,12 @@
                       <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel4" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="521" max="32767" attributes="0"/>
+                          <Component id="tb" pref="521" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" pref="95" max="-2" attributes="0"/>
@@ -93,7 +96,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                      <Component id="tb" pref="0" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -143,15 +146,14 @@
     <Component class="javax.swing.JComboBox" name="Coffee">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="8">
+          <StringArray count="7">
             <StringItem index="0" value="Esspresso"/>
             <StringItem index="1" value="Americano"/>
             <StringItem index="2" value="Latte"/>
             <StringItem index="3" value="Cappuccino"/>
             <StringItem index="4" value="Mocha"/>
             <StringItem index="5" value="Macchiato"/>
-            <StringItem index="6" value="Frappe"/>
-            <StringItem index="7" value="Affogato"/>
+            <StringItem index="6" value="Affogato"/>
           </StringArray>
         </Property>
       </Properties>
@@ -210,7 +212,7 @@
         <Property name="text" type="java.lang.String" value="Input  Number"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="tb">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -276,6 +278,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buy"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BuyActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="Total">
       <Properties>
